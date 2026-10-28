@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 3 — Session report</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#192c42;background:#f3f6f9;line-height:1.5}*{box-sizing:border-box}
+body{margin:0}main{max-width:1100px;margin:auto;padding:32px 24px}h1{font-size:34px;margin:4px 0}h2{margin:0 0 14px;font-size:22px}h3{margin:18px 0 6px;font-size:17px}p{margin:8px 0}
+.eyebrow{letter-spacing:.12em;font-size:12px;font-weight:700;color:#44617e}.muted{color:#53667a;font-size:14px}
+section{background:white;border:1px solid #d9e1e9;border-radius:12px;padding:22px;margin:20px 0}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}button,.file-label{font:inherit;font-weight:600;padding:9px 14px;border:1px solid #8fa3b8;background:white;border-radius:6px;color:#192c42;cursor:pointer}.file-label input{display:block;font-size:12px;max-width:270px;margin-top:5px}
+.banner{background:#fff1c2;border-left:5px solid #b57900;padding:12px 16px}.error{color:#a2202c;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:8px 0 4px}.stat{padding:14px;background:#eef4fa;border-radius:8px}.stat b{display:block;font-size:26px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin:12px 0}.key{display:inline-block;width:15px;height:12px;margin-right:5px;vertical-align:middle;border-radius:2px}.working{background:#2874bd}.waiting{background:#e2a12f}.idle{background:#a78bd6}
+.scroll{overflow-x:auto}.timeline{min-width:700px}.axis,.row{display:grid;grid-template-columns:200px 1fr;gap:12px}.axis{font-size:12px;margin-bottom:8px}.ticks{display:flex;justify-content:space-between}.row{align-items:center;margin:10px 0}
+.label{font-size:14px;overflow-wrap:anywhere}.label small{display:block;color:#53667a}.track{position:relative;height:30px;border:1px solid #d4dde7;background:repeating-linear-gradient(to right,#fafbfd 0%,#fafbfd calc(16.6667% - 1px),#dfe6ed calc(16.6667% - 1px),#dfe6ed 16.6667%)}.interval{position:absolute;top:5px;height:18px;min-width:1px;border-radius:3px}
+.span{position:absolute;top:13px;height:3px;background:#b8c4d1;z-index:0}.mark{position:absolute;top:1px;bottom:1px;width:3px;background:#263648;z-index:2;border-radius:1px}.interval{z-index:1}
+pre{background:#0f1a2b;color:#e8eef5;padding:16px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.4}ul{padding-left:22px}.student{border-top:1px solid #dfe6ed;padding:8px 0}
+.c30{color:#8b98a8}.c31{color:#ff7b72}.c32{color:#7ee787}.c33{color:#e3b341}.c34{color:#79c0ff}.c35{color:#d2a8ff}.c36{color:#56d4dd}.c37{color:#e8eef5}.bold{font-weight:700}
+@media print{.controls,#error{display:none}body{background:white}main{padding:0;max-width:none}section{break-inside:avoid;padding:12px;margin:12px 0}.scroll{overflow:visible}.timeline{min-width:0}h1{font-size:26px}pre{color:#192c42;background:#f3f6f9}}
+</style>
+</head>
+<body><main>
+<header><p class="eyebrow">LAB 3 · BUILD WITH SEVERAL AGENTS</p><h1>Session report</h1><p id="window" class="muted"></p></header>
+<div class="controls"><label class="file-label">Load laptop JSON files<input id="files" type="file" accept=".json,application/json" multiple=""></label><button id="save-html">Save HTML report</button></div>
+<p class="muted">Select both partners’ JSON files together. Loading replaces what is shown. Save HTML to keep a standalone copy with your data.</p>
+<p id="error" class="error" role="alert"></p><div id="report"></div>
+</main>
+<script id="report-data" type="application/json">{"version":2,"example":false,"lab":{"start":"2026-10-28T13:30:00+02:00","end":"2026-10-28T15:00:00+02:00"},"laptops":[{"id":"ahmad-laptop","student":"Ahmad","summary":"Built pause/resume on P and a persistent high score (localStorage with an in-session fallback) in separate worktrees via two subagents, and pushed ahmad/pause and ahmad/high-score. Merged both into main, resolving conflicts in game.js and settings.js, documented them in README.md and index.html, and pushed main 1c1b54d after Ahmad's manual test of the combined game. Later pulled the team main that Yazan had merged with Ruth's dark mode and Yazan's sounds and chaser drone; this laptop did not merge those.","observations":[],"notes":"The merge session also wrote this report; its intervals stop at the report request. Turns started by the features session's own subagent notifications count as working. Only AskUserQuestion is counted as waiting: auto mode showed no manual permission prompts. Excluded logs: home-folder sessions (evil-binary-search) and the separate coin-dash folder, which are not this repository.","history":"* \u001b[33m55502f3\u001b[m\u001b[33m (\u001b[m\u001b[1;36mHEAD -> \u001b[m\u001b[1;32mmain\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/main\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/HEAD\u001b[m\u001b[33m)\u001b[m Share Ruth's lab-report JSON for the combined report\n* \u001b[33mfb4870b\u001b[m Share Yazan's lab-report JSON for the combined report\n*   \u001b[33md0184f9\u001b[m Merge remote-tracking branch 'origin/main'\n\u001b[32m|\u001b[m\u001b[33m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[33m1c1b54d\u001b[m Document pause (P) and persistent high score\n\u001b[32m|\u001b[m *   \u001b[33m9b75e29\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m \u001b[34m|\u001b[m\u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[35m\\\u001b[m   \u001b[33m4a6c4c7\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[32m|\u001b[m \u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m   \u001b[33m2c11357\u001b[m Merge remote-tracking branch 'origin/ruth/dark-mode'\n\u001b[1;32m|\u001b[m\u001b[1;33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33mdff54df\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ruth/dark-mode\u001b[m\u001b[33m)\u001b[m Add dark/light mode toggle (N = dark, L = light)\n\u001b[1;32m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33madefc0c\u001b[m Merge branch 'yazan/chaser'\n\u001b[1;34m|\u001b[m\u001b[1;35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;34m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33m6da4cc2\u001b[m Add chaser drone that slowly follows the player\n\u001b[1;34m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m29eab3f\u001b[m Merge branch 'yazan/sounds'\n\u001b[1;36m|\u001b[m\u001b[31m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;36m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33me222a05\u001b[m Add Web Audio sound effects for coin pickup and drone hit\n\u001b[1;36m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m40c15fc\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m\u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m \u001b[36m|\u001b[m\u001b[35m_\u001b[m\u001b[1;31m|\u001b[m\u001b[35m/\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \n\u001b[32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m848fd85\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/high-score\u001b[m\u001b[33m, \u001b[m\u001b[1;32mahmad/high-score\u001b[m\u001b[33m)\u001b[m Add persistent high score with localStorage fallback\n* \u001b[33m|\u001b[m \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \u001b[33ma6c7659\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m  \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[36m_\u001b[m\u001b[33m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m  \n\u001b[36m|\u001b[m\u001b[36m/\u001b[m\u001b[1;31m|\u001b[m \u001b[33m|\u001b[m \u001b[1;31m/\u001b[m   \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m|\u001b[m\u001b[1;31m/\u001b[m    \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[1;31m/\u001b[m\u001b[33m|\u001b[m     \n\u001b[36m|\u001b[m * \u001b[33m|\u001b[m \u001b[33mf8138a9\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/pause\u001b[m\u001b[33m, \u001b[m\u001b[1;32mahmad/pause\u001b[m\u001b[33m)\u001b[m Add pause/resume toggled with P\n\u001b[36m|\u001b[m \u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m/\u001b[m \u001b[33m0233c52\u001b[m Add Lab 3 team notes: lab window and feature split\n\u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m9b4e106\u001b[m just cheking\n* \u001b[33m358633c\u001b[m Access check: Yazan\n* \u001b[33m7acb418\u001b[m Initial commit\n","sessions":[{"id":"ahmad-features","label":"Plan, worktrees, push branches","tool":"Claude","parent":null,"start":"2026-10-28T11:39:29Z","end":"2026-10-28T12:07:12Z","intervals":[{"start":"2026-10-28T11:39:29Z","end":"2026-10-28T11:40:31Z","state":"working"},{"start":"2026-10-28T11:51:40Z","end":"2026-10-28T11:52:42Z","state":"working"},{"start":"2026-10-28T11:54:59Z","end":"2026-10-28T11:55:09Z","state":"working"},{"start":"2026-10-28T11:55:25Z","end":"2026-10-28T11:56:13Z","state":"working"},{"start":"2026-10-28T11:57:13Z","end":"2026-10-28T11:57:22Z","state":"working"},{"start":"2026-10-28T11:57:22Z","end":"2026-10-28T11:58:20Z","state":"waiting"},{"start":"2026-10-28T11:58:20Z","end":"2026-10-28T11:58:42Z","state":"working"},{"start":"2026-10-28T11:58:51Z","end":"2026-10-28T11:59:17Z","state":"working"},{"start":"2026-10-28T12:07:07Z","end":"2026-10-28T12:07:12Z","state":"working"}]},{"id":"ahmad-pause","label":"Pause key (subagent)","tool":"Claude","parent":"ahmad-features","start":"2026-10-28T11:52:37Z","end":"2026-10-28T11:55:24Z","intervals":[{"start":"2026-10-28T11:52:37Z","end":"2026-10-28T11:55:24Z","state":"working"}]},{"id":"ahmad-high-score","label":"High score (subagent)","tool":"Claude","parent":"ahmad-features","start":"2026-10-28T11:52:37Z","end":"2026-10-28T11:54:47Z","intervals":[{"start":"2026-10-28T11:52:37Z","end":"2026-10-28T11:54:47Z","state":"working"}]},{"id":"ahmad-merge","label":"Merge, docs, push main","tool":"Claude","parent":null,"start":"2026-10-28T12:18:15Z","end":"2026-10-28T12:40:45Z","intervals":[{"start":"2026-10-28T12:18:15Z","end":"2026-10-28T12:18:40Z","state":"working"},{"start":"2026-10-28T12:19:50Z","end":"2026-10-28T12:21:41Z","state":"working"},{"start":"2026-10-28T12:29:00Z","end":"2026-10-28T12:29:31Z","state":"working"},{"start":"2026-10-28T12:38:30Z","end":"2026-10-28T12:38:37Z","state":"working"},{"start":"2026-10-28T12:39:56Z","end":"2026-10-28T12:40:45Z","state":"working"}]}]},{"id":"ruth-laptop","student":"Ruth","summary":"Added the dark/light mode toggle (N = dark, L = light) on ruth/dark-mode in a separate worktree, pushed it, and it was merged into main by Yazan together with Ahmad's pause and high score and Yazan's sounds and chaser drone. The main session was used for pulling teammates' work, planning the dark-mode prompt and checking the merged game; no other feature of Ruth's was started.","observations":[],"notes":"The first message in the main session (12:00:55 UTC) has no recorded reply and was re-sent a minute later, so no interval is recorded for it. One turn ended by interruption (a refused command) with no final reply; its end is the interruption. A background-task notification turn (about 12:33-12:34 UTC) was started by the system, not by a message from Ruth, and is not counted. Permission waits are only visible when the request was refused or was a question to the student, so approved permission prompts count as working. The session that wrote this report is excluded; no subagents were found.","history":"* \u001b[33mfb4870b\u001b[m\u001b[33m (\u001b[m\u001b[1;36mHEAD\u001b[m\u001b[33m -> \u001b[m\u001b[1;32mmain\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/main\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/HEAD\u001b[m\u001b[33m)\u001b[m Share Yazan's lab-report JSON for the combined report\n*   \u001b[33md0184f9\u001b[m Merge remote-tracking branch 'origin/main'\n\u001b[32m|\u001b[m\u001b[33m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[33m1c1b54d\u001b[m Document pause (P) and persistent high score\n\u001b[32m|\u001b[m *   \u001b[33m9b75e29\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m \u001b[34m|\u001b[m\u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[35m\\\u001b[m   \u001b[33m4a6c4c7\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[32m|\u001b[m \u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m   \u001b[33m2c11357\u001b[m Merge remote-tracking branch 'origin/ruth/dark-mode'\n\u001b[1;32m|\u001b[m\u001b[1;33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33mdff54df\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ruth/dark-mode\u001b[m\u001b[33m, \u001b[m\u001b[1;32mruth/dark-mode\u001b[m\u001b[33m)\u001b[m Add dark/light mode toggle (N = dark, L = light)\n\u001b[1;32m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33madefc0c\u001b[m Merge branch 'yazan/chaser'\n\u001b[1;34m|\u001b[m\u001b[1;35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;34m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33m6da4cc2\u001b[m Add chaser drone that slowly follows the player\n\u001b[1;34m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m29eab3f\u001b[m Merge branch 'yazan/sounds'\n\u001b[1;36m|\u001b[m\u001b[31m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;36m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33me222a05\u001b[m Add Web Audio sound effects for coin pickup and drone hit\n\u001b[1;36m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m40c15fc\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m\u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m \u001b[36m|\u001b[m\u001b[35m_\u001b[m\u001b[1;31m|\u001b[m\u001b[35m/\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \n\u001b[32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m848fd85\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/high-score\u001b[m\u001b[33m)\u001b[m Add persistent high score with localStorage fallback\n* \u001b[33m|\u001b[m \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \u001b[33ma6c7659\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m  \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[36m_\u001b[m\u001b[33m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m  \n\u001b[36m|\u001b[m\u001b[36m/\u001b[m\u001b[1;31m|\u001b[m \u001b[33m|\u001b[m \u001b[1;31m/\u001b[m   \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m|\u001b[m\u001b[1;31m/\u001b[m    \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[1;31m/\u001b[m\u001b[33m|\u001b[m     \n\u001b[36m|\u001b[m * \u001b[33m|\u001b[m \u001b[33mf8138a9\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/pause\u001b[m\u001b[33m)\u001b[m Add pause/resume toggled with P\n\u001b[36m|\u001b[m \u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m/\u001b[m \u001b[33m0233c52\u001b[m Add Lab 3 team notes: lab window and feature split\n\u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m9b4e106\u001b[m just cheking\n* \u001b[33m358633c\u001b[m Access check: Yazan\n* \u001b[33m7acb418\u001b[m Initial commit","sessions":[{"id":"ruth-main","label":"Main: pull, merge check, report","tool":"Claude","parent":null,"start":"2026-10-28T12:00:55.252Z","end":"2026-10-28T12:39:25.100Z","intervals":[{"start":"2026-10-28T12:02:01.939Z","end":"2026-10-28T12:02:29.130Z","state":"working"},{"start":"2026-10-28T12:05:31.451Z","end":"2026-10-28T12:05:36.877Z","state":"working"},{"start":"2026-10-28T12:07:50.120Z","end":"2026-10-28T12:07:53.645Z","state":"working"},{"start":"2026-10-28T12:07:53.645Z","end":"2026-10-28T12:07:59.855Z","state":"waiting"},{"start":"2026-10-28T12:08:15.606Z","end":"2026-10-28T12:08:42.001Z","state":"working"},{"start":"2026-10-28T12:12:39.446Z","end":"2026-10-28T12:12:51.980Z","state":"working"},{"start":"2026-10-28T12:15:36.263Z","end":"2026-10-28T12:16:01.370Z","state":"working"},{"start":"2026-10-28T12:21:52.990Z","end":"2026-10-28T12:22:35.912Z","state":"working"},{"start":"2026-10-28T12:27:56.554Z","end":"2026-10-28T12:28:11.188Z","state":"working"},{"start":"2026-10-28T12:28:11.188Z","end":"2026-10-28T12:28:31.103Z","state":"waiting"},{"start":"2026-10-28T12:28:31.103Z","end":"2026-10-28T12:28:38.813Z","state":"working"},{"start":"2026-10-28T12:28:53.870Z","end":"2026-10-28T12:29:12.981Z","state":"working"},{"start":"2026-10-28T12:31:00.604Z","end":"2026-10-28T12:31:36.085Z","state":"working"},{"start":"2026-10-28T12:35:45.050Z","end":"2026-10-28T12:36:00.419Z","state":"working"},{"start":"2026-10-28T12:36:09.433Z","end":"2026-10-28T12:36:23.182Z","state":"working"},{"start":"2026-10-28T12:39:15.713Z","end":"2026-10-28T12:39:25.100Z","state":"working"}]},{"id":"ruth-dark-mode","label":"Dark mode (worktree)","tool":"Claude","parent":null,"start":"2026-10-28T12:16:35.436Z","end":"2026-10-28T12:25:22.075Z","intervals":[{"start":"2026-10-28T12:16:35.436Z","end":"2026-10-28T12:17:59.548Z","state":"working"},{"start":"2026-10-28T12:18:27.030Z","end":"2026-10-28T12:18:48.003Z","state":"working"},{"start":"2026-10-28T12:22:33.550Z","end":"2026-10-28T12:22:40.849Z","state":"working"},{"start":"2026-10-28T12:22:46.464Z","end":"2026-10-28T12:22:53.646Z","state":"working"},{"start":"2026-10-28T12:23:23.437Z","end":"2026-10-28T12:23:27.056Z","state":"working"},{"start":"2026-10-28T12:23:50.552Z","end":"2026-10-28T12:24:11.069Z","state":"working"},{"start":"2026-10-28T12:24:20.476Z","end":"2026-10-28T12:24:40.257Z","state":"working"},{"start":"2026-10-28T12:25:04.290Z","end":"2026-10-28T12:25:22.075Z","state":"working"}]}]},{"id":"yazan-laptop","student":"Yazan","summary":"Built two features in separate worktrees: retro 8-bit Web Audio sound effects (yazan/sounds, chosen between two subagent-made styles) and a chaser drone that follows the player (yazan/chaser). Merged both plus Ruth's dark/light mode and Ahmad's pause and high score into main, resolving conflicts in game.js, settings.js and index.html, and pushed d0184f9. Combined game checked headless (no JS errors, pause, theme and chaser present); a full hand play-through is still to confirm.","observations":[],"notes":"The sounds session's log was not found under ~/.claude/projects, so it is missing from the timeline. The yazan-main session also wrote this report; its intervals are cut at report time.","history":"*   \u001b[33md0184f9\u001b[m\u001b[33m (\u001b[m\u001b[1;36mHEAD\u001b[m\u001b[33m -> \u001b[m\u001b[1;32mmain\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/main\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/HEAD\u001b[m\u001b[33m)\u001b[m Merge remote-tracking branch 'origin/main'\n\u001b[31m|\u001b[m\u001b[32m\\\u001b[m  \n\u001b[31m|\u001b[m * \u001b[33m1c1b54d\u001b[m Document pause (P) and persistent high score\n\u001b[31m|\u001b[m *   \u001b[33m9b75e29\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[31m|\u001b[m \u001b[33m|\u001b[m\u001b[34m\\\u001b[m  \n\u001b[31m|\u001b[m * \u001b[34m\\\u001b[m   \u001b[33m4a6c4c7\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[31m|\u001b[m \u001b[35m|\u001b[m\u001b[36m\\\u001b[m \u001b[34m\\\u001b[m  \n* \u001b[35m|\u001b[m \u001b[36m\\\u001b[m \u001b[34m\\\u001b[m   \u001b[33m2c11357\u001b[m Merge remote-tracking branch 'origin/ruth/dark-mode'\n\u001b[1;31m|\u001b[m\u001b[1;32m\\\u001b[m \u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[34m\\\u001b[m  \n\u001b[1;31m|\u001b[m * \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m \u001b[33mdff54df\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ruth/dark-mode\u001b[m\u001b[33m)\u001b[m Add dark/light mode toggle (N = dark, L = light)\n\u001b[1;31m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m \u001b[36m/\u001b[m \u001b[34m/\u001b[m  \n* \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m   \u001b[33madefc0c\u001b[m Merge branch 'yazan/chaser'\n\u001b[1;33m|\u001b[m\u001b[1;34m\\\u001b[m \u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[34m\\\u001b[m  \n\u001b[1;33m|\u001b[m * \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m \u001b[33m6da4cc2\u001b[m\u001b[33m (\u001b[m\u001b[1;32myazan/chaser\u001b[m\u001b[33m)\u001b[m Add chaser drone that slowly follows the player\n\u001b[1;33m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m \u001b[36m/\u001b[m \u001b[34m/\u001b[m  \n* \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m   \u001b[33m29eab3f\u001b[m Merge branch 'yazan/sounds'\n\u001b[1;35m|\u001b[m\u001b[1;36m\\\u001b[m \u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[34m\\\u001b[m  \n\u001b[1;35m|\u001b[m * \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m \u001b[33me222a05\u001b[m\u001b[33m (\u001b[m\u001b[1;32myazan/sounds\u001b[m\u001b[33m)\u001b[m Add Web Audio sound effects for coin pickup and drone hit\n\u001b[1;35m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m \u001b[36m/\u001b[m \u001b[34m/\u001b[m  \n* \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[34m|\u001b[m   \u001b[33m40c15fc\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[31m|\u001b[m\u001b[34m\\\u001b[m \u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[34m\\\u001b[m  \n\u001b[31m|\u001b[m \u001b[34m|\u001b[m \u001b[35m|\u001b[m\u001b[34m_\u001b[m\u001b[36m|\u001b[m\u001b[34m/\u001b[m  \n\u001b[31m|\u001b[m \u001b[34m|\u001b[m\u001b[34m/\u001b[m\u001b[35m|\u001b[m \u001b[36m|\u001b[m   \n\u001b[31m|\u001b[m * \u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[33m848fd85\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/high-score\u001b[m\u001b[33m)\u001b[m Add persistent high score with localStorage fallback\n* \u001b[32m|\u001b[m \u001b[35m|\u001b[m \u001b[36m|\u001b[m   \u001b[33ma6c7659\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[35m|\u001b[m\u001b[36m\\\u001b[m \u001b[32m\\\u001b[m \u001b[35m\\\u001b[m \u001b[36m\\\u001b[m  \n\u001b[35m|\u001b[m \u001b[36m|\u001b[m\u001b[35m_\u001b[m\u001b[32m|\u001b[m\u001b[35m/\u001b[m \u001b[36m/\u001b[m  \n\u001b[35m|\u001b[m\u001b[35m/\u001b[m\u001b[36m|\u001b[m \u001b[32m|\u001b[m \u001b[36m/\u001b[m   \n\u001b[35m|\u001b[m \u001b[36m|\u001b[m \u001b[32m|\u001b[m\u001b[36m/\u001b[m    \n\u001b[35m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m\u001b[32m|\u001b[m     \n\u001b[35m|\u001b[m * \u001b[32m|\u001b[m \u001b[33mf8138a9\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/pause\u001b[m\u001b[33m)\u001b[m Add pause/resume toggled with P\n\u001b[35m|\u001b[m \u001b[32m|\u001b[m\u001b[32m/\u001b[m  \n* \u001b[32m/\u001b[m \u001b[33m0233c52\u001b[m Add Lab 3 team notes: lab window and feature split\n\u001b[32m|\u001b[m\u001b[32m/\u001b[m  \n* \u001b[33m9b4e106\u001b[m just cheking\n* \u001b[33m358633c\u001b[m Access check: Yazan\n* \u001b[33m7acb418\u001b[m Initial commit\n","sessions":[{"id":"yazan-main","label":"Coordination, merges, conflict fixes","tool":"Claude","parent":null,"start":"2026-10-28T11:42:56Z","end":"2026-10-28T12:33:35Z","intervals":[{"start":"2026-10-28T11:42:56Z","end":"2026-10-28T11:43:56Z","state":"working"},{"start":"2026-10-28T11:45:56Z","end":"2026-10-28T11:46:43Z","state":"working"},{"start":"2026-10-28T11:51:41Z","end":"2026-10-28T11:51:57Z","state":"working"},{"start":"2026-10-28T11:53:02Z","end":"2026-10-28T11:53:24Z","state":"working"},{"start":"2026-10-28T11:57:30Z","end":"2026-10-28T11:59:12Z","state":"working"},{"start":"2026-10-28T11:59:54Z","end":"2026-10-28T12:00:08Z","state":"working"},{"start":"2026-10-28T12:00:54Z","end":"2026-10-28T12:01:11Z","state":"working"},{"start":"2026-10-28T12:04:11Z","end":"2026-10-28T12:04:22Z","state":"working"},{"start":"2026-10-28T12:07:28Z","end":"2026-10-28T12:07:46Z","state":"working"},{"start":"2026-10-28T12:07:51Z","end":"2026-10-28T12:08:25Z","state":"working"},{"start":"2026-10-28T12:09:05Z","end":"2026-10-28T12:09:14Z","state":"working"},{"start":"2026-10-28T12:10:14Z","end":"2026-10-28T12:10:20Z","state":"working"},{"start":"2026-10-28T12:10:53Z","end":"2026-10-28T12:11:00Z","state":"working"},{"start":"2026-10-28T12:11:55Z","end":"2026-10-28T12:12:02Z","state":"working"},{"start":"2026-10-28T12:12:45Z","end":"2026-10-28T12:13:08Z","state":"working"},{"start":"2026-10-28T12:16:00Z","end":"2026-10-28T12:16:17Z","state":"working"},{"start":"2026-10-28T12:20:04Z","end":"2026-10-28T12:21:28Z","state":"working"},{"start":"2026-10-28T12:21:36Z","end":"2026-10-28T12:23:26Z","state":"working"},{"start":"2026-10-28T12:23:55Z","end":"2026-10-28T12:25:40Z","state":"working"},{"start":"2026-10-28T12:28:14Z","end":"2026-10-28T12:32:31Z","state":"working"},{"start":"2026-10-28T12:32:35Z","end":"2026-10-28T12:33:35Z","state":"working"}]},{"id":"yazan-chaser","label":"Chaser drone","tool":"Claude","parent":null,"start":"2026-10-28T12:15:22Z","end":"2026-10-28T12:18:02Z","intervals":[{"start":"2026-10-28T12:15:22Z","end":"2026-10-28T12:18:02Z","state":"working"}]}]}]}</script>
+<script>
+'use strict';
+const STATES = ['working', 'waiting'];
+const requireValue = (ok, message) => { if (!ok) throw new Error(message); };
+const stamp = value => {
+  requireValue(typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value)), 'Every timestamp must be ISO 8601 with a timezone.');
+  return Date.parse(value);
+};
+const text = (value, label) => requireValue(typeof value === 'string' && value.trim(), `${label} is required.`);
+const optionalText = (value, label) => requireValue(value === undefined || value === null || typeof value === 'string', `${label} must be text.`);
+function validate(data) {
+  requireValue(data && data.version === 2 && typeof data.example === 'boolean', 'Expected version:2 and example:true/false.');
+  const start = stamp(data.lab?.start), end = stamp(data.lab?.end);
+  requireValue(end > start, 'Lab end must be after lab start.');
+  requireValue(Array.isArray(data.laptops) && data.laptops.length > 0, 'Include at least one laptop.');
+  const laptopIds = new Set(), sessionIds = new Set();
+  for (const laptop of data.laptops) {
+    for (const key of ['id', 'student', 'summary']) text(laptop[key], `Laptop ${key}`);
+    requireValue(!laptopIds.has(laptop.id), `Duplicate laptop: ${laptop.id}`); laptopIds.add(laptop.id);
+    requireValue(Array.isArray(laptop.observations) && laptop.observations.every(v => typeof v === 'string'), 'Observations must be a list of strings.');
+    optionalText(laptop.notes, 'Notes'); optionalText(laptop.history, 'History');
+    requireValue(Array.isArray(laptop.sessions), 'Sessions must be a list.');
+    requireValue(laptop.sessions.length > 0 || (laptop.notes && laptop.notes.trim()), 'A laptop with no sessions must say why in notes.');
+    for (const session of laptop.sessions) {
+      for (const key of ['id', 'label', 'tool']) text(session[key], `Session ${key}`);
+      requireValue(!sessionIds.has(session.id), `Duplicate session: ${session.id}`); sessionIds.add(session.id);
+      optionalText(session.parent, 'Parent');
+      requireValue(Array.isArray(session.intervals), 'Intervals must be a list.');
+      const intervals = session.intervals.map(i => {
+        const a = stamp(i.start), b = stamp(i.end);
+        requireValue(STATES.includes(i.state), `Interval state in ${session.label} must be working or waiting.`);
+        requireValue(a >= start && b <= end && b > a, `Interval in ${session.label} is outside the lab window or ends before it starts.`);
+        return [a, b];
+      }).sort((a, b) => a[0] - b[0]);
+      for (let n = 1; n < intervals.length; n++) requireValue(intervals[n][0] >= intervals[n - 1][1], `Overlapping intervals in ${session.label}.`);
+      const [first, last] = span(session);
+      requireValue(first !== null && last !== null, `Session ${session.label} needs start and end, or at least one interval.`);
+      // An interrupted session may contain only its first message, with no measured time.
+      requireValue(first >= start && last <= end && (last > first || (last === first && intervals.length === 0)), `Start and end of ${session.label} must lie inside the lab window, in order.`);
+      requireValue(intervals.every(([a, b]) => a >= first && b <= last), `Intervals of ${session.label} fall outside its start and end.`);
+    }
+  }
+  return data;
+}
+// A session's first message and last reply: the declared start/end, else the edge of its intervals.
+function span(session) {
+  const starts = session.intervals.map(i => stamp(i.start)), ends = session.intervals.map(i => stamp(i.end));
+  const first = session.start ? stamp(session.start) : (starts.length ? Math.min(...starts) : null);
+  const last = session.end ? stamp(session.end) : (ends.length ? Math.max(...ends) : null);
+  return [first, last];
+}
+function combine(reports) {
+  reports.forEach(validate);
+  const first = reports[0];
+  for (const r of reports) requireValue(stamp(r.lab.start) === stamp(first.lab.start) && stamp(r.lab.end) === stamp(first.lab.end), 'Both laptops must use the same lab start and end.');
+  requireValue(reports.every(r => r.example === first.example), 'Do not combine the fictional example with collected data.');
+  return validate({ version: 2, example: first.example, lab: first.lab, laptops: reports.flatMap(r => r.laptops) });
+}
+// Idle: the agent had replied and no new task had come yet, i.e. the gaps between a session's intervals.
+function idleGaps(session) {
+  const sorted = session.intervals.map(i => [stamp(i.start), stamp(i.end)]).sort((a, b) => a[0] - b[0]);
+  return sorted.slice(1).map((cur, n) => [sorted[n][1], cur[0]]).filter(([a, b]) => b > a);
+}
+function totals(sessions) {
+  const out = { working: 0, waiting: 0, idle: 0 };
+  sessions.forEach(s => s.intervals.forEach(i => out[i.state] += (stamp(i.end) - stamp(i.start)) / 60000));
+  sessions.forEach(s => idleGaps(s).forEach(([a, b]) => out.idle += (b - a) / 60000));
+  return out;
+}
+// Average number of agents working at any moment: working minutes over the lab window.
+function utilization(sessions, duration) { return (totals(sessions).working / (duration / 60000)).toFixed(1); }
+function el(tag, content, className) { const node = document.createElement(tag); if (content !== undefined) node.textContent = content; if (className) node.className = className; return node; }
+function section(root, title) { const s = el('section'); s.append(el('h2', title)); root.append(s); return s; }
+function stat(parent, value, label) { const s = el('div', undefined, 'stat'); s.append(el('b', value), el('span', label)); parent.append(s); }
+function render(data) {
+  const root = document.getElementById('report'); root.replaceChildren();
+  const start = stamp(data.lab.start), duration = stamp(data.lab.end) - start;
+  const minute = t => ((stamp(t) - start) / 60000).toFixed(1);
+  document.getElementById('window').textContent = `${data.laptops.map(l => l.student).join(' + ')} · ${new Date(start).toISOString()} · ${Math.round(duration / 60000)} minutes`;
+  if (data.example) root.append(el('p', 'FICTIONAL EXAMPLE — these sessions and timings only show the format. Load your own exports to replace them.', 'banner'));
+
+  const glance = section(root, 'Agent time');
+  for (const laptop of data.laptops) {
+    const sum = totals(laptop.sessions);
+    glance.append(el('h3', laptop.student));
+    const stats = el('div', undefined, 'stats'); glance.append(stats);
+    stat(stats, `${sum.working.toFixed(0)} min`, 'agent working');
+    stat(stats, `${sum.waiting.toFixed(0)} min`, 'agent waiting for an answer');
+    stat(stats, `${sum.idle.toFixed(0)} min`, 'agent idle, waiting for the next task');
+    stat(stats, utilization(laptop.sessions, duration), 'agents working at once, on average');
+    stat(stats, String(laptop.sessions.length), 'sessions');
+  }
+  const pair = utilization(data.laptops.flatMap(l => l.sessions), duration);
+  glance.append(el('p', `Across ${data.laptops.length === 1 ? 'this laptop' : 'the pair'}, ${pair} agents were working at any moment on average. Working runs from your message to the agent’s reply, tools included. Waiting is the agent asking you something until you answered. Idle is the agent done with one task and waiting for you to give it the next one, up to your next message. Minutes are summed over sessions, so two agents at once count twice; the average divides that sum by the whole lab window.`, 'muted'));
+
+  const timeline = section(root, 'Timeline'), legend = el('div', undefined, 'legend'); timeline.append(legend);
+  for (const [state, label] of [['working', 'Agent working'], ['waiting', 'Waiting for an answer'], ['idle', 'Idle: waiting for the next task']]) { const item = el('span'); item.append(el('i', undefined, `key ${state}`), document.createTextNode(label)); legend.append(item); }
+  for (const laptop of data.laptops) {
+    timeline.append(el('h3', laptop.student));
+    const scroll = el('div', undefined, 'scroll'), chart = el('div', undefined, 'timeline'), axis = el('div', undefined, 'axis'), ticks = el('div', undefined, 'ticks');
+    axis.append(el('span', 'Minutes since lab start'), ticks); for (let n = 0; n <= 6; n++) ticks.append(el('span', String(Math.round(duration / 60000 * n / 6)))); chart.append(axis); scroll.append(chart); timeline.append(scroll);
+    if (!laptop.sessions.length) chart.append(el('p', 'No sessions recorded; see the notes below.'));
+    for (const s of laptop.sessions) {
+      const row = el('div', undefined, 'row'), label = el('div', s.label, 'label'), track = el('div', undefined, 'track');
+      const [first, last] = span(s), at = t => ((t - start) / duration * 100), min = t => ((t - start) / 60000).toFixed(1);
+      label.append(el('small', `${s.parent ? `${s.tool} · subagent of ${s.parent}` : s.tool} · min ${min(first)}–${min(last)}`)); row.append(label, track); chart.append(row);
+      const line = el('div', undefined, 'span'); line.style.left = at(first) + '%'; line.style.width = (at(last) - at(first)) + '%'; track.append(line);
+      for (const [t, what] of [[first, 'first message'], [last, 'last recorded message']]) {
+        const mark = el('div', undefined, 'mark'); mark.style.left = `min(${at(t)}%, calc(100% - 3px))`; mark.title = `${s.label}: ${what}, minute ${min(t)}`; mark.setAttribute('aria-label', mark.title); track.append(mark);
+      }
+      for (const [a, b] of idleGaps(s)) {
+        const bar = el('div', undefined, 'interval idle');
+        bar.style.left = ((a - start) / duration * 100) + '%'; bar.style.width = ((b - a) / duration * 100) + '%';
+        bar.title = `${s.label}: idle, minute ${((a - start) / 60000).toFixed(1)}–${((b - start) / 60000).toFixed(1)}`; bar.setAttribute('aria-label', bar.title); track.append(bar);
+      }
+      for (const i of s.intervals) {
+        const bar = el('div', undefined, `interval ${i.state}`);
+        bar.style.left = ((stamp(i.start) - start) / duration * 100) + '%'; bar.style.width = ((stamp(i.end) - stamp(i.start)) / duration * 100) + '%';
+        bar.title = `${s.label}: ${i.state}, minute ${minute(i.start)}–${minute(i.end)}`; bar.setAttribute('aria-label', bar.title); track.append(bar);
+      }
+    }
+  }
+
+  const commits = section(root, 'History graph');
+  const histories = data.laptops.filter(l => l.history && l.history.trim());
+  const distinct = [...new Set(histories.map(l => l.history.trim()))];
+  if (!histories.length) commits.append(el('p', 'No history graph recorded.'));
+  else if (distinct.length === 1) commits.append(tree(distinct[0]));
+  else for (const l of histories) commits.append(el('h3', `As seen from ${l.student}’s clone`), tree(l.history.trim()));
+  commits.append(el('p', 'Output of git log --graph --oneline --decorate --all at the end of the lab, coloured as in the terminal: hashes yellow, HEAD cyan, local branches green, remote branches red.', 'muted'));
+
+  const story = section(root, 'What we did');
+  for (const l of data.laptops) {
+    const block = el('div', undefined, 'student'); block.append(el('h3', l.student), el('p', l.summary));
+    if (l.observations.length) { const ul = el('ul'); l.observations.forEach(t => ul.append(el('li', t))); block.append(ul); }
+    if (l.notes && l.notes.trim()) block.append(el('p', `Notes: ${l.notes}`, 'muted'));
+    story.append(block);
+  }
+}
+// The history graph, coloured. Terminal escape codes (git log --color=always) are honoured;
+// plain output is coloured the way git colours it: graph lanes cycling, hash yellow,
+// HEAD cyan, local branches green, remote branches red, tags yellow.
+const LANES = ['c31', 'c32', 'c33', 'c34', 'c35', 'c36'];
+function tree(source) {
+  const pre = el('pre');
+  const piece = (t, cls) => { const s = el('span', t, cls); pre.append(s); };
+  if (/\x1b\[/.test(source)) {
+    let cls = '';
+    for (const part of source.split(/(\x1b\[[0-9;]*m)/)) {
+      const code = part.match(/^\x1b\[([0-9;]*)m$/);
+      if (!code) { if (part) piece(part, cls || undefined); continue; }
+      for (const n of (code[1] || '0').split(';')) {
+        if (n === '0' || n === '' || n === '39') cls = '';
+        else if (n === '1') cls = (cls + ' bold').trim();
+        else if (/^3[0-7]$/.test(n)) cls = 'c' + n;
+        else if (/^9[0-7]$/.test(n)) cls = 'c3' + n[1];
+      }
+    }
+    return pre;
+  }
+  source.split('\n').forEach((line, index) => {
+    if (index) pre.append(document.createTextNode('\n'));
+    const m = line.match(/^([ *|\/\\_.-]*?)([0-9a-f]{7,40})( \((.*?)\))?(.*)$/);
+    const graph = m ? m[1] : line;
+    [...graph].forEach((ch, col) => piece(ch, ch === ' ' ? undefined : LANES[Math.floor(col / 2) % LANES.length]));
+    if (!m) return;
+    piece(m[2], 'c33');
+    if (m[3]) {
+      piece(' (');
+      m[4].split(', ').forEach((ref, i) => {
+        if (i) piece(', ');
+        if (ref.startsWith('HEAD -> ')) { piece('HEAD -> ', 'c36 bold'); piece(ref.slice(8), 'c32 bold'); }
+        else if (ref.startsWith('tag: ')) piece(ref, 'c33 bold');
+        else if (ref.includes('/')) piece(ref, 'c31 bold');
+        else piece(ref, 'c32 bold');
+      });
+      piece(')');
+    }
+    piece(m[5]);
+  });
+  return pre;
+}
+function download(name, content, type) { const url = URL.createObjectURL(new Blob([content], { type })), a = el('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
+let current;
+try { current = validate(JSON.parse(document.getElementById('report-data').textContent)); render(current); } catch (error) { document.getElementById('error').textContent = error.message; }
+document.getElementById('files').addEventListener('change', async event => {
+  if (!event.target.files.length) return;
+  try { const parsed = await Promise.all([...event.target.files].map(async f => JSON.parse(await f.text()))); current = combine(parsed); render(current); document.getElementById('error').textContent = ''; }
+  catch (error) { document.getElementById('error').textContent = error.message; }
+  event.target.value = '';
+});
+document.getElementById('save-html').onclick = () => {
+  if (!current) return;
+  const copy = document.documentElement.cloneNode(true);
+  copy.querySelector('#report-data').textContent = JSON.stringify(current).replace(/</g, '\\u003c');
+  copy.querySelector('#report').replaceChildren(); copy.querySelector('#error').textContent = ''; copy.querySelector('#window').textContent = '';
+  download('lab03-report.html', '<!doctype html>\n' + copy.outerHTML, 'text/html');
+};
+</script>
+
+</body></html>
