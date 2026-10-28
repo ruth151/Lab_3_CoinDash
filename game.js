@@ -1,4 +1,28 @@
 /* global Phaser, COIN_DASH */
+// Best score persists via localStorage when possible, otherwise only for this session.
+const HighScore = {
+  session: 0,
+  persistent: true,
+  load() {
+    let stored = 0;
+    try {
+      const raw = window.localStorage.getItem(COIN_DASH.highScoreKey);
+      const n = Number(raw);
+      if (raw !== null && /^\d+$/.test(raw) && Number.isSafeInteger(n)) stored = n;
+      this.persistent = true;
+    } catch (e) { this.persistent = false; }
+    this.session = Math.max(this.session, stored);
+    return this.session;
+  },
+  save(score) {
+    this.session = Math.max(this.session, score);
+    try {
+      window.localStorage.setItem(COIN_DASH.highScoreKey, String(this.session));
+      this.persistent = true;
+    } catch (e) { this.persistent = false; }
+  }
+};
+
 class CoinDash extends Phaser.Scene {
   constructor() { super('CoinDash'); }
 
@@ -6,11 +30,16 @@ class CoinDash extends Phaser.Scene {
     const c = COIN_DASH;
     this.score = 0;
     this.finished = false;
+    this.best = HighScore.load();
     this.deadline = this.time.now + c.roundSeconds * 1000;
     this.physics.world.setBounds(0, 44, c.width, c.height - 44);
     this.add.grid(c.width / 2, c.height / 2, c.width, c.height, 40, 40,
       c.colors.background, 1, 0x24334b, 0.45);
-    this.hud = this.add.text(18, 12, '', { font: '18px monospace', color: '#ffffff' });
+    const hudStyle = { font: '18px monospace', color: '#ffffff' };
+    this.hud = this.add.text(18, 12, '', hudStyle);
+    this.bestText = this.add.text(c.width / 2, 12, '', hudStyle).setOrigin(0.5, 0);
+    this.timeText = this.add.text(c.width - 18, 12, '', hudStyle).setOrigin(1, 0);
+    this.showBest();
     this.player = this.add.rectangle(c.width / 2, c.height / 2, 24, 24, c.colors.player);
     this.physics.add.existing(this.player);
     this.player.body.setCollideWorldBounds(true);
@@ -58,8 +87,13 @@ class CoinDash extends Phaser.Scene {
     const direction = new Phaser.Math.Vector2(dx, dy).normalize().scale(COIN_DASH.playerSpeed);
     this.player.body.setVelocity(direction.x, direction.y);
     const seconds = Math.max(0, Math.ceil((this.deadline - this.time.now) / 1000));
-    this.hud.setText(`Coins: ${this.score}                       Time: ${seconds}s`);
+    this.hud.setText(`Coins: ${this.score}`);
+    this.timeText.setText(`Time: ${seconds}s`);
     if (seconds === 0) this.finish('Time is up!');
+  }
+
+  showBest() {
+    this.bestText.setText(`Best: ${this.best}${HighScore.persistent ? '' : ' (not saved)'}`);
   }
 
   finish(reason) {
@@ -67,9 +101,17 @@ class CoinDash extends Phaser.Scene {
     this.finished = true;
     this.physics.pause();
     const c = COIN_DASH;
-    this.add.rectangle(c.width / 2, c.height / 2, 460, 150, 0x0a1120, 0.95);
+    const record = this.score > this.best;
+    if (record) {
+      HighScore.save(this.score);
+      this.best = this.score;
+      this.showBest();
+    }
+    const note = HighScore.persistent ? '' : ' (not saved)';
+    const bestLine = record ? `New high score!${note}` : `Best: ${this.best}`;
+    this.add.rectangle(c.width / 2, c.height / 2, 460, 190, 0x0a1120, 0.95);
     this.add.text(c.width / 2, c.height / 2,
-      `${reason}\n${this.score} coins collected\nPress R to try again`,
+      `${reason}\n${this.score} coins collected\n${bestLine}\nPress R to try again`,
       { font: '24px monospace', color: '#ffffff', align: 'center', lineSpacing: 12 }
     ).setOrigin(0.5);
   }
