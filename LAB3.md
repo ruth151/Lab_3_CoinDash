@@ -12,5 +12,5 @@ Shared checkpoint commit: 9b4e106
 Features (one branch each, `name/feature`):
 
 - Ahmad: pause (`ahmad/pause`), high score (`ahmad/high-score`)
-- Ruth: TBD
-- Yazan: TBD
+- Ruth: dark / light mode, N / L (`ruth/dark-mode`), merged
+- Yazan: sounds (`yazan/sounds`), chaser drone (`yazan/chaser`), merged
