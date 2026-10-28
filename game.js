@@ -8,9 +8,10 @@ class CoinDash extends Phaser.Scene {
     this.finished = false;
     this.deadline = this.time.now + c.roundSeconds * 1000;
     this.physics.world.setBounds(0, 44, c.width, c.height - 44);
-    this.add.grid(c.width / 2, c.height / 2, c.width, c.height, 40, 40,
-      c.colors.background, 1, 0x24334b, 0.45);
-    this.hud = this.add.text(18, 12, '', { font: '18px monospace', color: '#ffffff' });
+    this.panel = null;
+    this.grid = this.add.grid(c.width / 2, c.height / 2, c.width, c.height, 40, 40,
+      c.colors.background, 1, c.colors.grid, 0.45);
+    this.hud = this.add.text(18, 12, '', { font: '18px monospace', color: c.colors.text });
     this.player = this.add.rectangle(c.width / 2, c.height / 2, 24, 24, c.colors.player);
     this.physics.add.existing(this.player);
     this.player.body.setCollideWorldBounds(true);
@@ -35,6 +36,34 @@ class CoinDash extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keys = this.input.keyboard.addKeys('W,A,S,D,R');
     this.input.keyboard.on('keydown-R', () => this.scene.restart());
+    // The registry outlives scene restarts, so the chosen mode stays after R.
+    this.input.keyboard.on('keydown-N', () => this.setTheme('dark'));
+    this.input.keyboard.on('keydown-L', () => this.setTheme('light'));
+    this.applyTheme();
+  }
+
+  themeColors() {
+    return this.registry.get('theme') === 'light' ? COIN_DASH.lightColors : COIN_DASH.colors;
+  }
+
+  setTheme(name) {
+    this.registry.set('theme', name);
+    this.applyTheme();
+  }
+
+  applyTheme() {
+    const colors = this.themeColors();
+    this.cameras.main.setBackgroundColor(colors.background);
+    this.grid.setFillStyle(colors.background, 1).setOutlineStyle(colors.grid, 0.45);
+    this.hud.setColor(colors.text);
+    this.player.setFillStyle(colors.player);
+    this.coin.setFillStyle(colors.coin);
+    this.drones.getChildren().forEach(drone => drone.setFillStyle(colors.drone));
+    if (this.panel) {
+      this.panel.setFillStyle(colors.panel, 0.95);
+      this.message.setColor(colors.text);
+    }
+    document.body.classList.toggle('light', colors === COIN_DASH.lightColors);
   }
 
   placeCoin() {
@@ -67,10 +96,11 @@ class CoinDash extends Phaser.Scene {
     this.finished = true;
     this.physics.pause();
     const c = COIN_DASH;
-    this.add.rectangle(c.width / 2, c.height / 2, 460, 150, 0x0a1120, 0.95);
-    this.add.text(c.width / 2, c.height / 2,
+    const colors = this.themeColors();
+    this.panel = this.add.rectangle(c.width / 2, c.height / 2, 460, 150, colors.panel, 0.95);
+    this.message = this.add.text(c.width / 2, c.height / 2,
       `${reason}\n${this.score} coins collected\nPress R to try again`,
-      { font: '24px monospace', color: '#ffffff', align: 'center', lineSpacing: 12 }
+      { font: '24px monospace', color: colors.text, align: 'center', lineSpacing: 12 }
     ).setOrigin(0.5);
   }
 }
