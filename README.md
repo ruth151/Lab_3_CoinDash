@@ -3,7 +3,10 @@
 Pair repo access check: Yazan.
 
 Collect coins, avoid drones, and survive a 45-second round. Move with arrow keys or WASD;
-press R to restart. This is deliberately small so you can add features during the lab.
+press P to pause or resume (paused time does not count against the round) and R to restart.
+Your best score is saved in the browser's `localStorage` and shown as "Best" in the HUD; if storage
+is unavailable it is kept only for the current page session and marked "(not saved)".
+This is deliberately small so you can add features during the lab.
 
 **Play it here:** https://www.avivz.net/coin-dash/
 
@@ -38,8 +41,8 @@ laptops' JSON files together and save the combined HTML. Use the same time windo
 - `.gitignore`: keeps generated reports out of Git.
 - `index.html`: page and script loading.
 - `style.css`: page appearance.
-- `settings.js`: round duration, speeds, colours and dimensions.
-- `game.js`: scene, input, collisions, score and end-of-round behaviour.
+- `settings.js`: round duration, speeds, colours, dimensions and the high-score storage key.
+- `game.js`: scene, input, pause, collisions, score, high score and end-of-round behaviour.
 - `vendor/phaser-3.90.0.min.js`: the pinned Phaser runtime, byte for byte the file published at
   `https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js`; `vendor/LICENSE.phaser.txt` is its MIT licence.
 
