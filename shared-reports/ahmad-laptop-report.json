@@ -1,0 +1,140 @@
+{
+  "version": 2,
+  "example": false,
+  "lab": {
+    "start": "2026-10-28T13:30:00+02:00",
+    "end": "2026-10-28T15:00:00+02:00"
+  },
+  "laptops": [
+    {
+      "id": "ahmad-laptop",
+      "student": "Ahmad",
+      "summary": "Built pause/resume on P and a persistent high score (localStorage with an in-session fallback) in separate worktrees via two subagents, and pushed ahmad/pause and ahmad/high-score. Merged both into main, resolving conflicts in game.js and settings.js, documented them in README.md and index.html, and pushed main 1c1b54d after Ahmad's manual test of the combined game. Later pulled the team main that Yazan had merged with Ruth's dark mode and Yazan's sounds and chaser drone; this laptop did not merge those.",
+      "observations": [],
+      "notes": "The merge session also wrote this report; its intervals stop at the report request. Turns started by the features session's own subagent notifications count as working. Only AskUserQuestion is counted as waiting: auto mode showed no manual permission prompts. Excluded logs: home-folder sessions (evil-binary-search) and the separate coin-dash folder, which are not this repository.",
+      "history": "* \u001b[33m55502f3\u001b[m\u001b[33m (\u001b[m\u001b[1;36mHEAD -> \u001b[m\u001b[1;32mmain\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/main\u001b[m\u001b[33m, \u001b[m\u001b[1;31morigin/HEAD\u001b[m\u001b[33m)\u001b[m Share Ruth's lab-report JSON for the combined report\n* \u001b[33mfb4870b\u001b[m Share Yazan's lab-report JSON for the combined report\n*   \u001b[33md0184f9\u001b[m Merge remote-tracking branch 'origin/main'\n\u001b[32m|\u001b[m\u001b[33m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[33m1c1b54d\u001b[m Document pause (P) and persistent high score\n\u001b[32m|\u001b[m *   \u001b[33m9b75e29\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m \u001b[34m|\u001b[m\u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m * \u001b[35m\\\u001b[m   \u001b[33m4a6c4c7\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[32m|\u001b[m \u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m   \u001b[33m2c11357\u001b[m Merge remote-tracking branch 'origin/ruth/dark-mode'\n\u001b[1;32m|\u001b[m\u001b[1;33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33mdff54df\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ruth/dark-mode\u001b[m\u001b[33m)\u001b[m Add dark/light mode toggle (N = dark, L = light)\n\u001b[1;32m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33madefc0c\u001b[m Merge branch 'yazan/chaser'\n\u001b[1;34m|\u001b[m\u001b[1;35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;34m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33m6da4cc2\u001b[m Add chaser drone that slowly follows the player\n\u001b[1;34m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m29eab3f\u001b[m Merge branch 'yazan/sounds'\n\u001b[1;36m|\u001b[m\u001b[31m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[1;36m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m \u001b[33me222a05\u001b[m Add Web Audio sound effects for coin pickup and drone hit\n\u001b[1;36m|\u001b[m \u001b[36m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m \u001b[35m/\u001b[m  \n* \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[35m|\u001b[m   \u001b[33m40c15fc\u001b[m Merge remote-tracking branch 'origin/ahmad/high-score'\n\u001b[32m|\u001b[m\u001b[35m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m \u001b[35m\\\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m \u001b[36m|\u001b[m\u001b[35m_\u001b[m\u001b[1;31m|\u001b[m\u001b[35m/\u001b[m  \n\u001b[32m|\u001b[m \u001b[35m|\u001b[m\u001b[35m/\u001b[m\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \n\u001b[32m|\u001b[m * \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m848fd85\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/high-score\u001b[m\u001b[33m, \u001b[m\u001b[1;32mahmad/high-score\u001b[m\u001b[33m)\u001b[m Add persistent high score with localStorage fallback\n* \u001b[33m|\u001b[m \u001b[36m|\u001b[m \u001b[1;31m|\u001b[m   \u001b[33ma6c7659\u001b[m Merge remote-tracking branch 'origin/ahmad/pause'\n\u001b[36m|\u001b[m\u001b[1;31m\\\u001b[m \u001b[33m\\\u001b[m \u001b[36m\\\u001b[m \u001b[1;31m\\\u001b[m  \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[36m_\u001b[m\u001b[33m|\u001b[m\u001b[36m/\u001b[m \u001b[1;31m/\u001b[m  \n\u001b[36m|\u001b[m\u001b[36m/\u001b[m\u001b[1;31m|\u001b[m \u001b[33m|\u001b[m \u001b[1;31m/\u001b[m   \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m \u001b[33m|\u001b[m\u001b[1;31m/\u001b[m    \n\u001b[36m|\u001b[m \u001b[1;31m|\u001b[m\u001b[1;31m/\u001b[m\u001b[33m|\u001b[m     \n\u001b[36m|\u001b[m * \u001b[33m|\u001b[m \u001b[33mf8138a9\u001b[m\u001b[33m (\u001b[m\u001b[1;31morigin/ahmad/pause\u001b[m\u001b[33m, \u001b[m\u001b[1;32mahmad/pause\u001b[m\u001b[33m)\u001b[m Add pause/resume toggled with P\n\u001b[36m|\u001b[m \u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m/\u001b[m \u001b[33m0233c52\u001b[m Add Lab 3 team notes: lab window and feature split\n\u001b[33m|\u001b[m\u001b[33m/\u001b[m  \n* \u001b[33m9b4e106\u001b[m just cheking\n* \u001b[33m358633c\u001b[m Access check: Yazan\n* \u001b[33m7acb418\u001b[m Initial commit\n",
+      "sessions": [
+        {
+          "id": "ahmad-features",
+          "label": "Plan, worktrees, push branches",
+          "tool": "Claude",
+          "parent": null,
+          "start": "2026-10-28T11:39:29Z",
+          "end": "2026-10-28T12:07:12Z",
+          "intervals": [
+            {
+              "start": "2026-10-28T11:39:29Z",
+              "end": "2026-10-28T11:40:31Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:51:40Z",
+              "end": "2026-10-28T11:52:42Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:54:59Z",
+              "end": "2026-10-28T11:55:09Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:55:25Z",
+              "end": "2026-10-28T11:56:13Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:57:13Z",
+              "end": "2026-10-28T11:57:22Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:57:22Z",
+              "end": "2026-10-28T11:58:20Z",
+              "state": "waiting"
+            },
+            {
+              "start": "2026-10-28T11:58:20Z",
+              "end": "2026-10-28T11:58:42Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T11:58:51Z",
+              "end": "2026-10-28T11:59:17Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T12:07:07Z",
+              "end": "2026-10-28T12:07:12Z",
+              "state": "working"
+            }
+          ]
+        },
+        {
+          "id": "ahmad-pause",
+          "label": "Pause key (subagent)",
+          "tool": "Claude",
+          "parent": "ahmad-features",
+          "start": "2026-10-28T11:52:37Z",
+          "end": "2026-10-28T11:55:24Z",
+          "intervals": [
+            {
+              "start": "2026-10-28T11:52:37Z",
+              "end": "2026-10-28T11:55:24Z",
+              "state": "working"
+            }
+          ]
+        },
+        {
+          "id": "ahmad-high-score",
+          "label": "High score (subagent)",
+          "tool": "Claude",
+          "parent": "ahmad-features",
+          "start": "2026-10-28T11:52:37Z",
+          "end": "2026-10-28T11:54:47Z",
+          "intervals": [
+            {
+              "start": "2026-10-28T11:52:37Z",
+              "end": "2026-10-28T11:54:47Z",
+              "state": "working"
+            }
+          ]
+        },
+        {
+          "id": "ahmad-merge",
+          "label": "Merge, docs, push main",
+          "tool": "Claude",
+          "parent": null,
+          "start": "2026-10-28T12:18:15Z",
+          "end": "2026-10-28T12:40:45Z",
+          "intervals": [
+            {
+              "start": "2026-10-28T12:18:15Z",
+              "end": "2026-10-28T12:18:40Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T12:19:50Z",
+              "end": "2026-10-28T12:21:41Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T12:29:00Z",
+              "end": "2026-10-28T12:29:31Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T12:38:30Z",
+              "end": "2026-10-28T12:38:37Z",
+              "state": "working"
+            },
+            {
+              "start": "2026-10-28T12:39:56Z",
+              "end": "2026-10-28T12:40:45Z",
+              "state": "working"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
