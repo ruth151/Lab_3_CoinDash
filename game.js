@@ -6,6 +6,7 @@ class CoinDash extends Phaser.Scene {
     const c = COIN_DASH;
     this.score = 0;
     this.finished = false;
+    this.paused = false;
     this.deadline = this.time.now + c.roundSeconds * 1000;
     this.physics.world.setBounds(0, 44, c.width, c.height - 44);
     this.add.grid(c.width / 2, c.height / 2, c.width, c.height, 40, 40,
@@ -35,6 +36,26 @@ class CoinDash extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keys = this.input.keyboard.addKeys('W,A,S,D,R');
     this.input.keyboard.on('keydown-R', () => this.scene.restart());
+    this.input.keyboard.on('keydown-P', (event) => { if (!event.repeat) this.togglePause(); });
+    this.pauseOverlay = this.add.container(c.width / 2, c.height / 2, [
+      this.add.rectangle(0, 0, 360, 110, c.colors.pauseOverlay, 0.9),
+      this.add.text(0, 0, 'PAUSED\nP to resume · R to restart',
+        { font: '22px monospace', color: '#ffffff', align: 'center', lineSpacing: 12 }).setOrigin(0.5)
+    ]).setDepth(10).setVisible(false);
+  }
+
+  togglePause() {
+    if (this.finished) return;
+    this.paused = !this.paused;
+    this.pauseOverlay.setVisible(this.paused);
+    if (this.paused) {
+      this.pausedAt = this.time.now;
+      this.physics.pause();
+    } else {
+      // Push the deadline back so time spent paused does not count against the round.
+      this.deadline += this.time.now - this.pausedAt;
+      this.physics.resume();
+    }
   }
 
   placeCoin() {
@@ -50,7 +71,7 @@ class CoinDash extends Phaser.Scene {
   }
 
   update() {
-    if (this.finished) return;
+    if (this.finished || this.paused) return;
     const dx = Number(this.cursors.right.isDown || this.keys.D.isDown)
       - Number(this.cursors.left.isDown || this.keys.A.isDown);
     const dy = Number(this.cursors.down.isDown || this.keys.S.isDown)
